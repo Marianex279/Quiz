@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Simple Past Quiz</title>
+<style>
+    body {
+        font-family: Arial;
+        background: #0f172a;
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+    .box {
+        background: #1e293b;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 500px;
+        margin: auto;
+    }
+    button {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .btn { background: #3b82f6; color: white; }
+    .btn:hover { background: #2563eb; }
+    #score {
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<div class="box">
+    <h2>🔥 Simple Past Quiz</h2>
+    <p id="score">Score: 0</p>
+    <p id="question"></p>
+    <div id="answers"></div>
+</div>
+
+<script>
+const quiz = [
+    {q: "Past of 'sing'?", a: ["singed","sang","sung"], c: "sang"},
+    {q: "Past of 'steal'?", a: ["stealed","stole","stolen"], c: "stole"},
+    {q: "Past of 'pay'?", a: ["paid","payed","payd"], c: "paid"},
+    {q: "Past of 'come'?", a: ["came","come","comed"], c: "came"},
+    {q: "Past of 'ring'?", a: ["rang","ringed","rung"], c: "rang"},
+    {q: "Past of 'catch'?", a: ["catched","caught","catch"], c: "caught"}
+];
+
+let current = 0;
+let score = 0;
+
+function loadQuestion() {
+    let q = quiz[current];
+    document.getElementById("question").innerText = q.q;
+
+    let html = "";
+    q.a.forEach(ans => {
+        html += `<button class="btn" onclick="check('${ans}')">${ans}</button>`;
+    });
+    document.getElementById("answers").innerHTML = html;
+}
+
+function check(ans) {
+    if (ans === quiz[current].c) {
+        score += 10;
+        document.getElementById("score").innerText = "Score: " + score;
+    }
+
+    current++;
+
+    if (current < quiz.length) {
+        loadQuestion();
+    } else {
+        document.querySelector(".box").innerHTML =
+            `<h2>🎉 Finished!</h2>
+             <p>Your score: ${score}</p>`;
+    }
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
